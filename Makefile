@@ -1,4 +1,4 @@
-SRC = bitsh.c linenoise.c
+SRC = bitsh.c linenoise.c util.c
 EXEC = bitsh
 C_FLAGS = -Wall -Werror -Wpedantic -g
 
