@@ -5,6 +5,7 @@
 #include <unistd.h>
 
 #include "linenoise.h"
+#include "util.h"
 
 int main(int argc, char *argv[])
 {
@@ -14,22 +15,17 @@ int main(int argc, char *argv[])
     {
         puts(line);
 
-        /*let's break the line into tokens using strtok_r()
-         * and print them as a list
-         */
-        char *str = line, *token = NULL, *save_ptr = NULL;
-
-        for(int i = 0; ; i++, str = NULL)
+        Command *cmd = parseCommand(line);
+        puts(cmd->progName);
+        for(int i = 0; ; i++)
         {
-            token = strtok_r(str, " ", &save_ptr);
-            if(token == NULL)
-            {
-                //no more tokens
+            if(cmd->args[i] == NULL)
                 break;
-            }
-            printf("%d. %s\n", i+1, token);
+
+            puts(cmd->args[i]);
         }
 
+        puts(line);
         free(line);
     }
     return 0;
