@@ -61,3 +61,16 @@ void freeCommandStruct(Command *cmd)
     }
     free(cmd);
 }
+
+
+void printCommandStruct(Command *cmd)
+{
+        puts(cmd->progName);
+        for(int i = 0; ; i++)
+        {
+            if(cmd->args[i] == NULL)
+                break;
+
+            puts(cmd->args[i]);
+        }
+}

@@ -10,3 +10,7 @@ typedef struct
 
 Command* parseCommand(char *line);
 void freeCommandStruct(Command *cmd);
+
+
+/*debug functions only*/
+void printCommandStruct(Command *cmd);
