@@ -16,14 +16,11 @@ int main(int argc, char *argv[])
         puts(line);
 
         Command *cmd = parseCommand(line);
-        puts(cmd->progName);
-        for(int i = 0; ; i++)
-        {
-            if(cmd->args[i] == NULL)
-                break;
 
-            puts(cmd->args[i]);
-        }
+        if( execvp(cmd->progName, cmd->args) < 0) //returns only if something failed
+            perror("execvp()");
+
+        puts("This should be unreachable");
 
         free(line);
         freeCommandStruct(cmd);
