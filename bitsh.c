@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 #include "linenoise.h"
@@ -17,10 +18,29 @@ int main(int argc, char *argv[])
 
         Command *cmd = parseCommand(line);
 
-        if( execvp(cmd->progName, cmd->args) < 0) //returns only if something failed
-            perror("execvp()");
+        pid_t child_pid = fork();
+        if(child_pid < 0)
+        {
+            perror("fork()");
+            return 1;
+        }
+        else if(child_pid == 0)
+        {
+            //in child
+            if( execvp(cmd->progName, cmd->args) < 0) //returns only if something failed
+                perror("execvp()");
 
-        puts("This should be unreachable");
+            return 0;
+        }
+
+        int child_status = 0;
+        pid_t wpid = waitpid(child_pid, &child_status, 0);
+
+        if(wpid == -1)
+        {
+            perror("waitpid()");
+            return 1;
+        }
 
         free(line);
         freeCommandStruct(cmd);
