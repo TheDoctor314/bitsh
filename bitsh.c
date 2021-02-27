@@ -25,8 +25,8 @@ int main(int argc, char *argv[])
             puts(cmd->args[i]);
         }
 
-        puts(line);
         free(line);
+        freeCommandStruct(cmd);
     }
     return 0;
 }

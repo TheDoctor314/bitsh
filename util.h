@@ -9,3 +9,4 @@ typedef struct
 } Command;
 
 Command* parseCommand(char *line);
+void freeCommandStruct(Command *cmd);

@@ -49,3 +49,15 @@ Command* parseCommand(char *line)
 
     return cmd;
 }
+
+void freeCommandStruct(Command *cmd)
+{
+    for(int i = 0; ; i++)
+    {
+        if(cmd->args[i] == NULL)
+            break;
+
+        free(cmd->args[i]);
+    }
+    free(cmd);
+}
