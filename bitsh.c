@@ -12,7 +12,7 @@
 #define PROG_NAME "bitsh"
 
 /*null-terminated list of supported builtins*/
-static char *builtins[] = {"cd", "echo", NULL};
+static char *builtins[] = {"cd", NULL};
 
 int runifBuiltin(Command *cmd);
 
