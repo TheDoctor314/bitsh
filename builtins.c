@@ -2,12 +2,11 @@
 
 int builtin_cd(Command *cmd)
 {
-    puts("cd working");
-    return 0;
-}
+    if(chdir(cmd->args[1]) < 0)
+    {
+        perror("chdir()");
+        return -1;
+    }
 
-int builtin_echo(Command *cmd)
-{
-    puts("echo working");
     return 0;
 }
