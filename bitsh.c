@@ -9,6 +9,8 @@
 #include "util.h"
 #include "builtins.h"
 
+#define PROG_NAME "bitsh"
+
 /*null-terminated list of supported builtins*/
 static char *builtins[] = {"cd", "echo", NULL};
 
@@ -21,9 +23,11 @@ int main(int argc, char *argv[])
     while( (line = linenoise("bitsh> ")) != NULL)
     {
         Command *cmd = parseCommand(line);
-        runifBuiltin(cmd);
 
-        /*
+        int ret = runifBuiltin(cmd);
+        if(ret == 0)
+            continue;
+
         pid_t child_pid = fork();
         if(child_pid < 0)
         {
@@ -47,7 +51,6 @@ int main(int argc, char *argv[])
             perror("waitpid()");
             return 1;
         }
-        */
 
         free(line);
         freeCommandStruct(cmd);
@@ -60,7 +63,6 @@ int runifBuiltin(Command *cmd)
     static builtinFunc builtinHandler[] = 
     {
         &builtin_cd,
-        &builtin_echo,
         NULL
     };
 
@@ -74,6 +76,7 @@ int runifBuiltin(Command *cmd)
 
         if(strcmp(cmd->progName, builtins[i]) == 0)
         {
+            //add error checking later
             (*builtinHandler[i])(cmd);
             return 0;
         }
