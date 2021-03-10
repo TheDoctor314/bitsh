@@ -22,6 +22,8 @@ int main(int argc, char *argv[])
 
     while( (line = linenoise("bitsh> ")) != NULL)
     {
+        linenoiseHistoryAdd(line);
+
         Command *cmd = parseCommand(line);
 
         int ret = runifBuiltin(cmd);
