@@ -16,6 +16,7 @@ typedef struct
 
 Command* parseCommand(char *line);
 void freeCommandStruct(Command *cmd);
+size_t arglen(char **args);
 
 
 /*debug functions only*/

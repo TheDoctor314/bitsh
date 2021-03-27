@@ -62,6 +62,28 @@ void freeCommandStruct(Command *cmd)
     free(cmd);
 }
 
+/*Note: The strlen() function does not check for
+ * null pointers, so we don't either.
+ * Program will shit its pants if pass NULL
+*/
+size_t arglen(char **args)
+{
+    /*
+     * Naive Implementation
+     * We don't expect there to be many arguments
+     * in the general case.
+    */
+    size_t len = 0;
+    char **ptr = args;
+    while(*ptr)
+    {
+        len++;
+        ptr++;
+    }
+    
+    return len;
+}
+
 
 void printCommandStruct(Command *cmd)
 {
