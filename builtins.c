@@ -13,3 +13,22 @@ int builtin_cd(Command *cmd)
 
     return 0;
 }
+
+int builtin_exit(Command *cmd)
+{
+    if( arglen(cmd->args) > 2)
+    {
+        fputs("exit: Too many arguments\n", stderr);
+        return 0;
+    }
+
+    int rc = 0;
+    if(cmd->args[1] != NULL)
+    {
+        char *p_end;
+        rc = strtol(cmd->args[1], &p_end, 10);
+    }
+
+    /*TODO: Clean up*/
+    exit(rc);
+}
