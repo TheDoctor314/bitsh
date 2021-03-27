@@ -12,7 +12,7 @@
 #define PROG_NAME "bitsh"
 
 /*null-terminated list of supported builtins*/
-static char *builtins[] = {"cd", NULL};
+static char *builtins[] = {"cd", "exit", NULL};
 
 int runifBuiltin(Command *cmd);
 
@@ -65,6 +65,7 @@ int runifBuiltin(Command *cmd)
     static builtinFunc builtinHandler[] = 
     {
         &builtin_cd,
+        &builtin_exit,
         NULL
     };
 
