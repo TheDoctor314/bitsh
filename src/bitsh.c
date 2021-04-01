@@ -25,10 +25,14 @@ int main(int argc, char *argv[])
         linenoiseHistoryAdd(line);
 
         Command *cmd = parseCommand(line);
+        free(line);
 
         int ret = runifBuiltin(cmd);
         if(ret == 0)
+        {
+            freeCommandStruct(cmd);
             continue;
+        }
 
         pid_t child_pid = fork();
         if(child_pid < 0)
@@ -54,7 +58,6 @@ int main(int argc, char *argv[])
             return 1;
         }
 
-        free(line);
         freeCommandStruct(cmd);
     }
     return 0;

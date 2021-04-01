@@ -29,6 +29,7 @@ int builtin_exit(Command *cmd)
         rc = strtol(cmd->argv[1], &p_end, 10);
     }
 
-    /*TODO: Clean up*/
+    freeCommandStruct(cmd);
+
     exit(rc);
 }
