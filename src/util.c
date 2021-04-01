@@ -41,11 +41,11 @@ Command* parseCommand(char *line)
             return NULL;
         }
 
-        cmd->args[i] = token_copy;
+        cmd->argv[i] = token_copy;
     }
     free(copy);
 
-    cmd->argc = arglen(cmd->args);
+    cmd->argc = arglen(cmd->argv);
 
     return cmd;
 }
@@ -54,10 +54,10 @@ void freeCommandStruct(Command *cmd)
 {
     for(int i = 0; ; i++)
     {
-        if(cmd->args[i] == NULL)
+        if(cmd->argv[i] == NULL)
             break;
 
-        free(cmd->args[i]);
+        free(cmd->argv[i]);
     }
     free(cmd);
 }
@@ -66,7 +66,7 @@ void freeCommandStruct(Command *cmd)
  * null pointers, so we don't either.
  * Program will shit its pants if pass NULL
 */
-size_t arglen(char **args)
+size_t arglen(char **argv)
 {
     /*
      * Naive Implementation
@@ -74,7 +74,7 @@ size_t arglen(char **args)
      * in the general case.
     */
     size_t len = 0;
-    char **ptr = args;
+    char **ptr = argv;
     while(*ptr)
     {
         len++;
@@ -89,9 +89,9 @@ void printCommandStruct(Command *cmd)
 {
         for(int i = 0; ; i++)
         {
-            if(cmd->args[i] == NULL)
+            if(cmd->argv[i] == NULL)
                 break;
 
-            puts(cmd->args[i]);
+            puts(cmd->argv[i]);
         }
 }

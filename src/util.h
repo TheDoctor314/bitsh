@@ -11,12 +11,12 @@
 typedef struct
 {
     int argc;
-    char *args[];
+    char *argv[];
 } Command;
 
 Command* parseCommand(char *line);
 void freeCommandStruct(Command *cmd);
-size_t arglen(char **args);
+size_t arglen(char **argv);
 
 
 /*debug functions only*/

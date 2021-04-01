@@ -5,7 +5,7 @@
  * It is the most basic of implementations.*/
 int builtin_cd(Command *cmd)
 {
-    if(chdir(cmd->args[1]) < 0)
+    if(chdir(cmd->argv[1]) < 0)
     {
         perror("chdir()");
         return -1;
@@ -16,17 +16,17 @@ int builtin_cd(Command *cmd)
 
 int builtin_exit(Command *cmd)
 {
-    if( arglen(cmd->args) > 2)
+    if( arglen(cmd->argv) > 2)
     {
         fputs("exit: Too many arguments\n", stderr);
         return 0;
     }
 
     int rc = 0;
-    if(cmd->args[1] != NULL)
+    if(cmd->argv[1] != NULL)
     {
         char *p_end;
-        rc = strtol(cmd->args[1], &p_end, 10);
+        rc = strtol(cmd->argv[1], &p_end, 10);
     }
 
     /*TODO: Clean up*/

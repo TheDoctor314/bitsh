@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
         else if(child_pid == 0)
         {
             //in child
-            if( execvp(cmd->args[0], cmd->args) < 0) //returns only if something failed
+            if( execvp(cmd->argv[0], cmd->argv) < 0) //returns only if something failed
                 perror("execvp()");
 
             return 0;
@@ -69,7 +69,7 @@ int runifBuiltin(Command *cmd)
         NULL
     };
 
-    if(cmd->args[0] == NULL)
+    if(cmd->argv[0] == NULL)
         return -1;
 
     for(int i = 0; ; i++)
@@ -77,7 +77,7 @@ int runifBuiltin(Command *cmd)
         if(builtins[i] == NULL)
             break;
 
-        if(strcmp(cmd->args[0], builtins[i]) == 0)
+        if(strcmp(cmd->argv[0], builtins[i]) == 0)
         {
             //add error checking later
             (*builtinHandler[i])(cmd);
