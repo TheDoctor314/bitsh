@@ -10,7 +10,7 @@
 
 typedef struct
 {
-    char *progName;
+    int argc;
     char *args[];
 } Command;
 

@@ -45,7 +45,7 @@ Command* parseCommand(char *line)
     }
     free(copy);
 
-    cmd->progName = cmd->args[0];
+    cmd->argc = arglen(cmd->args);
 
     return cmd;
 }
@@ -87,7 +87,6 @@ size_t arglen(char **args)
 
 void printCommandStruct(Command *cmd)
 {
-        puts(cmd->progName);
         for(int i = 0; ; i++)
         {
             if(cmd->args[i] == NULL)
