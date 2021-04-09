@@ -6,6 +6,8 @@ SRC_DIR := src/
 
 # Find all the C source files
 SRCS := $(shell find $(SRC_DIR) -name *.c)
+# Stripping 'src/' prefix
+SRCS := $(notdir $(SRCS))
 
 # String substitution for every source file
 # For eg: hello.c -> ./build/hello.c.o
@@ -35,7 +37,7 @@ $(EXEC): $(OBJS)
 	$(CC) $(OBJS) -o $@ $(LDFLAGS)
 
 # Build step for C source
-$(BUILD_DIR)/%.c.o: %.c
+$(BUILD_DIR)/%.c.o: $(SRC_DIR)/%.c
 	mkdir -p $(dir $@)
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
