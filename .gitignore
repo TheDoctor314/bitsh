@@ -1,3 +1,4 @@
 build/
 bitsh
 *.vim
+.ccls-cache/
